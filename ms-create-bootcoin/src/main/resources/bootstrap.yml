@@ -1,0 +1,36 @@
+
+spring:
+  cloud: 
+    config: 
+      enabled: false 
+
+server:
+  port: 9054
+
+  data:
+    mongodb:
+      uri: mongodb+srv://dbUser:j6FPw3opZsiHuiWT@db-everis-bank.pmiyr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+  application:
+    name: create-bootcoin-service
+
+    stream:
+      function:
+#        definition: transactionYankiEventPublisher; yankiCreatedProcessor
+        definition: asociationDebitCardPublisher
+      bindings:
+#        transactionYankiEventPublisher-out-0:
+#          destination: transactionsyanki
+
+        asociationDebitCardPublisher-out-0:
+          destination: yankidebitcardin
+        asociationDebitCardProcessor-in-0:
+          destination: yankidebitcard
+          
+         # destination: yankidebitcardin
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server-bc.azurewebsites.net/eureka/
+      
+      
+
